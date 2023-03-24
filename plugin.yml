@@ -1,0 +1,9 @@
+---
+name: EasyInterface
+version: 1.0.0
+main: SixpennyYard\EasyInterface\Main
+api: [5.0.0]
+src-namespace-prefix: SixpennyYard\EasyInterface
+author: SixpennyYard
+description: Plugin to create in game some custom UI !
+...
