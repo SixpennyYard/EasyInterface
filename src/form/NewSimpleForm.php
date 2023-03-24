@@ -2,8 +2,13 @@
 
 namespace SixpennyYard\EasyInterface\form;
 
+use pocketmine\item\LegacyStringToItemParser;
+use pocketmine\item\LegacyStringToItemParserException;
+use pocketmine\item\StringToItemParser;
+use pocketmine\lang\KnownTranslationFactory;
 use pocketmine\player\Player;
 use pocketmine\Server;
+use pocketmine\utils\TextFormat;
 use SixpennyYard\EasyInterface\form\FormAPI\SimpleForm;
 use SixpennyYard\EasyInterface\FormManager;
 
@@ -28,7 +33,7 @@ class NewSimpleForm
                 {
                     if($data === null)
                     {
-                        return;
+                        return true;
                     }
                     if ($data == $case)
                     {
@@ -94,8 +99,9 @@ class NewSimpleForm
                                     try
                                     {
                                         $item = StringToItemParser::getInstance()->parse($sendAction[2]) ?? LegacyStringToItemParser::getInstance()->parse($sendAction[2]);
-                                    }catch(LegacyStringToItemParserException $e){
-                                        $sender->sendMessage(KnownTranslationFactory::commands_give_item_notFound($args[1])->prefix(TextFormat::RED));
+                                    }
+                                    catch(LegacyStringToItemParserException $e){
+                                        $player->sendMessage(KnownTranslationFactory::commands_give_item_notFound($sendAction[2])->prefix(TextFormat::RED));
                                         return true;
                                     }
                                     $item->setCount($sendAction[3]);
@@ -107,9 +113,10 @@ class NewSimpleForm
                                 try
                                 {
                                     $item = StringToItemParser::getInstance()->parse($sendAction[2]) ?? LegacyStringToItemParser::getInstance()->parse($sendAction[2]);
-                                }catch(LegacyStringToItemParserException $e)
+                                }
+                                catch(LegacyStringToItemParserException $e)
                                 {
-                                    $sender->sendMessage(KnownTranslationFactory::commands_give_item_notFound($args[1])->prefix(TextFormat::RED));
+                                    $player->sendMessage(KnownTranslationFactory::commands_give_item_notFound($sendAction[2])->prefix(TextFormat::RED));
                                     return true;
                                 }
                                 $item->setCount($sendAction[3]);
@@ -120,16 +127,18 @@ class NewSimpleForm
                                 try
                                 {
                                     $item = StringToItemParser::getInstance()->parse($sendAction[2]) ?? LegacyStringToItemParser::getInstance()->parse($sendAction[2]);
-                                }catch(LegacyStringToItemParserException $e)
+                                }
+                                catch(LegacyStringToItemParserException $e)
                                 {
-                                    $sender->sendMessage(KnownTranslationFactory::commands_give_item_notFound($args[1])->prefix(TextFormat::RED));
+                                    $player->sendMessage(KnownTranslationFactory::commands_give_item_notFound($sendAction[2])->prefix(TextFormat::RED));
                                     return true;
                                 }
                                 $item->setCount($sendAction[3]);
                                 $target = Server::getInstance()->getPlayerExact($sendAction[1]);
                                 $target->getInventory()->addItem($item);
                             }
-                        }elseif (str_contains($button['onclick'], "say"))
+                        }
+                        elseif (str_contains($button['onclick'], "say"))
                         {
                             if ($sendAction[1] == "everyone")
                             {
