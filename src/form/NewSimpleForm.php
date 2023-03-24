@@ -102,7 +102,7 @@ class NewSimpleForm
                                     $onlinePlayer->getInventory()->addItem($item);
                                 }
                             }
-                            elseif ($sendAction[1] == "target)
+                            elseif ($sendAction[1] == "target")
                             {
                                 try
                                 {
