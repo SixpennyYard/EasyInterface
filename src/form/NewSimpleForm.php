@@ -91,8 +91,8 @@ class NewSimpleForm
                             {
                                 foreach (Server::getInstance()->getOnlinePlayers() as $onlinePlayer)
                                 {
-                                    //TODO: give
-                                    try{
+                                    try
+                                    {
                                         $item = StringToItemParser::getInstance()->parse($sendAction[2]) ?? LegacyStringToItemParser::getInstance()->parse($sendAction[2]);
                                     }catch(LegacyStringToItemParserException $e){
                                         $sender->sendMessage(KnownTranslationFactory::commands_give_item_notFound($args[1])->prefix(TextFormat::RED));
@@ -101,6 +101,33 @@ class NewSimpleForm
                                     $item->setCount($sendAction[3]);
                                     $onlinePlayer->getInventory()->addItem($item);
                                 }
+                            }
+                            elseif ($sendAction[1] == "target)
+                            {
+                                try
+                                {
+                                    $item = StringToItemParser::getInstance()->parse($sendAction[2]) ?? LegacyStringToItemParser::getInstance()->parse($sendAction[2]);
+                                }catch(LegacyStringToItemParserException $e)
+                                {
+                                    $sender->sendMessage(KnownTranslationFactory::commands_give_item_notFound($args[1])->prefix(TextFormat::RED));
+                                    return true;
+                                }
+                                $item->setCount($sendAction[3]);
+                                $player->getInventory()->addItem($item);
+                            }
+                            else
+                            {
+                                try
+                                {
+                                    $item = StringToItemParser::getInstance()->parse($sendAction[2]) ?? LegacyStringToItemParser::getInstance()->parse($sendAction[2]);
+                                }catch(LegacyStringToItemParserException $e)
+                                {
+                                    $sender->sendMessage(KnownTranslationFactory::commands_give_item_notFound($args[1])->prefix(TextFormat::RED));
+                                    return true;
+                                }
+                                $item->setCount($sendAction[3]);
+                                $target = Server::getInstance()->getPlayerExact($sendAction[1]);
+                                $target->getInventory()->addItem($item);
                             }
                         }elseif (str_contains($button['onclick'], "say"))
                         {
