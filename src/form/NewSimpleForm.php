@@ -92,7 +92,14 @@ class NewSimpleForm
                                 foreach (Server::getInstance()->getOnlinePlayers() as $onlinePlayer)
                                 {
                                     //TODO: give
-                                    $onlinePlayer->getInventory()->addItem();
+                                    try{
+                                        $item = StringToItemParser::getInstance()->parse($sendAction[2]) ?? LegacyStringToItemParser::getInstance()->parse($sendAction[2]);
+                                    }catch(LegacyStringToItemParserException $e){
+                                        $sender->sendMessage(KnownTranslationFactory::commands_give_item_notFound($args[1])->prefix(TextFormat::RED));
+                                        return true;
+                                    }
+                                    $item->setCount($sendAction[3]);
+                                    $onlinePlayer->getInventory()->addItem($item);
                                 }
                             }
                         }elseif (str_contains($button['onclick'], "say"))
