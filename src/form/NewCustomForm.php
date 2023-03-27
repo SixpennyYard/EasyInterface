@@ -17,11 +17,10 @@ class NewCustomForm
 
     private function NewCustomForm(string $title, mixed $dropdown, mixed $stepSlider, mixed $slider, mixed $toggle, mixed $label, mixed $input): void
     {
-        //TODO: NewCustomForm
         $form = new CustomForm(function (Player $player, ?array $data)
         {
             if ($data === null) return true;
-            //ici je switch mes elements
+            //TODO: ici je switch mes elements
         });
 
 
@@ -33,7 +32,7 @@ class NewCustomForm
                 $array = [];
                 foreach ($drop[1] as $item)
                 {
-                    $array = $item;
+                    $array[] = $item;
                 }
                 $form->addDropdown($drop[0], $array);
             }
@@ -43,11 +42,11 @@ class NewCustomForm
             foreach ($stepSlider as $step)
             {
                 $array = [];
-                foreach ($stepSlider[1] as $item)
+                foreach ($step[1] as $item)
                 {
-                    $array = $item;
+                    $array[] = $item;
                 }
-                $form->addStepSlider($stepSlider[0], $array);
+                $form->addStepSlider($step[0], $array);
             }
         }
         if (!$slider === null)
@@ -58,7 +57,7 @@ class NewCustomForm
         {
             if ($toggle[1] === true or $toggle[1] === false)
             {
-                if (isset($toggle[2]))
+                if (!$toggle[2] === null)
                 {
                     $form->addToggle($toggle[0], $toggle[1], $toggle[2]);
                 }
@@ -69,7 +68,7 @@ class NewCustomForm
             }
             else
             {
-                if (isset($toggle[1]))
+                if (!$toggle[1] === null)
                 {
                     $form->addToggle($toggle[0], false, $toggle[1]);
                 }
@@ -86,7 +85,7 @@ class NewCustomForm
         }
         if (!$input === null)
         {
-            if (isset($input[1]))
+            if (!$input[1] === null)
             {
                 $form->addInput($input[0], $input[1]);
             }

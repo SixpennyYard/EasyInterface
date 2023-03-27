@@ -3,6 +3,7 @@
 namespace SixpennyYard\EasyInterface;
 
 use pocketmine\form\Form;
+use pocketmine\player\Player;
 use pocketmine\utils\Config;
 use SixpennyYard\EasyInterface\exception\FormName;
 use SixpennyYard\EasyInterface\form\NewCustomForm;
@@ -51,7 +52,7 @@ class FormManager{
     /**
      * @throws FormName
      */
-    public function getFormByTitle(string $formTitle): Form
+    public function getFormByTitle(string $formTitle, Player $player = null): ?Form
     {
         if (isset($this->simpleFormManage->simpleForm[$formTitle]))
         {
@@ -63,7 +64,30 @@ class FormManager{
         {
             return $this->modalFormManage->modalForm[$formTitle];
         }
-        return throw new FormName("Please use a correct form name. You can correct that in the configuration file: interfaces.yml. \n$formTitle's incorrect !");
+        if ($player === null)
+        {
+            return throw new FormName("Please use a correct form name or you can correct that in the configuration file: interfaces.yml. \n$formTitle's incorrect !");
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+    /**
+     * @throws FormName
+     */
+    public function sendFormToPlayer(Player $player, string $formTitle): void
+    {
+        $form = $this->getFormByTitle($formTitle);
+        if (!$form === null)
+        {
+            $player->sendForm($form);
+        }
+        else
+        {
+            $player->sendMessage("Please use a correct form name or you can correct that in the configuration file: interfaces.yml. \n$formTitle's incorrect !");
+        }
     }
 
 }
