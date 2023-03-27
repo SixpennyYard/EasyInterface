@@ -35,6 +35,19 @@ final class Main extends PluginBase {
                     ],
                 ],
                 [
+                    "title" => "ModalForm",
+                    "type" => "modal",
+                    "content" => "Create new modal form",
+                    "button1" => [
+                        "name" => "yes",
+                        "onclick" => "send:delform"
+                    ],
+                    "button2" => [
+                        "name" => "no",
+                        "onclick" => null
+                    ]
+                ],
+                [
                     "title" => "DelForm",
                     "type" => "simple",
                     "content" => null,

@@ -24,7 +24,7 @@ class NewSimpleForm
     private function NewSimpleForm(string $title, ?string $content, mixed $buttons): void
     {
 
-        $form = new SimpleForm(function(Player $player, $data, $buttons)
+        $form = new SimpleForm(function(Player $player, $buttons, int $data = null)
         {
             $case = 0;
             foreach ($buttons as $button)

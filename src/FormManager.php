@@ -30,13 +30,19 @@ class FormManager{
             if (strtolower($data['type']) == "simple")
             {
                 $form = new NewSimpleForm($data['title'], $data['content'], $data['button']);
-            }elseif (strtolower($data['type']) == "custom")
-            {
-                //TODO: CustomForm
-            }elseif (strtolower($data['type']) == "modal")
-            {
-                //TODO: ModalForm
+                $this->simpleFormManage[$data['title']] = $form;
             }
+            elseif (strtolower($data['type']) == "custom")
+            {
+                $form = new NewCustomForm($data['title'], $data['dropdown'], $data['stepSlider'], $data['slider'], $data['toggle'], $data['label'], $data['input']);
+                $this->customFormManage[$data['title']] = $form;
+            }
+            elseif (strtolower($data['type']) == "modal")
+            {
+                $form = new NewModalForm($data['title'], $data['content'], $data['button1'], $data['button2']);
+                $this->customFormManage[$data['title']] = $form;
+            }
+
             Main::getInstance()->getLogger()->info("Interface call: " . $data['title'] . " is now registered ! " . $percent . "% is registered.");
             $value += 1;
         }
