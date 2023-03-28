@@ -7,14 +7,35 @@ use SixpennyYard\EasyInterface\form\FormAPI\CustomForm;
 
 class NewCustomForm
 {
-
+    /**
+     * @var CustomForm
+     */
     public CustomForm $customForm;
 
+    /**
+     * @param string $title
+     * @param $dropdown
+     * @param $stepSlider
+     * @param $slider
+     * @param $toggle
+     * @param $label
+     * @param $input
+     */
     public function __construct(string $title, $dropdown = null, $stepSlider = null, $slider = null, $toggle = null, $label = null, $input = null)
     {
         $this->NewCustomForm($title, $dropdown, $stepSlider, $slider, $toggle, $label, $input);
     }
 
+    /**
+     * @param string $title
+     * @param mixed $dropdown
+     * @param mixed $stepSlider
+     * @param mixed $slider
+     * @param mixed $toggle
+     * @param mixed $label
+     * @param mixed $input
+     * @return void
+     */
     private function NewCustomForm(string $title, mixed $dropdown, mixed $stepSlider, mixed $slider, mixed $toggle, mixed $label, mixed $input): void
     {
         $form = new CustomForm(function (Player $player, ?array $data)

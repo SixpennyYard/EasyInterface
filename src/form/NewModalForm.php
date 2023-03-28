@@ -14,14 +14,29 @@ use SixpennyYard\EasyInterface\FormManager;
 
 class NewModalForm
 {
-
+    /**
+     * @var ModalForm
+     */
     public ModalForm $modalForm;
 
+    /**
+     * @param string $title
+     * @param $button1
+     * @param $button2
+     * @param string $content
+     */
     public function __construct(string $title, $button1, $button2, string $content = "You should set a content to change this text !!!")
     {
         $this->NewModalForm($title, $content, $button1, $button2);
     }
 
+    /**
+     * @param string $title
+     * @param string $content
+     * @param mixed $button1
+     * @param mixed $button2
+     * @return void
+     */
     private function NewModalForm(string $title, string $content, mixed $button1, mixed $button2): void
     {
         $form = new ModalForm(function(Player $player, $data, $button1, $button2){

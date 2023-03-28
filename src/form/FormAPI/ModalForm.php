@@ -6,7 +6,9 @@ namespace SixpennyYard\EasyInterface\form\FormAPI;
 
 class ModalForm extends Form {
 
-    /** @var string */
+    /**
+     * @var string
+     */
     private $content = "";
 
     /**
@@ -23,6 +25,7 @@ class ModalForm extends Form {
 
     /**
      * @param string $title
+     * @return void
      */
     public function setTitle(string $title) : void {
         $this->data["title"] = $title;
@@ -44,6 +47,7 @@ class ModalForm extends Form {
 
     /**
      * @param string $content
+     * @return void
      */
     public function setContent(string $content) : void {
         $this->data["content"] = $content;
@@ -51,6 +55,7 @@ class ModalForm extends Form {
 
     /**
      * @param string $text
+     * @return void
      */
     public function setButton1(string $text) : void {
         $this->data["button1"] = $text;
@@ -65,6 +70,7 @@ class ModalForm extends Form {
 
     /**
      * @param string $text
+     * @return void
      */
     public function setButton2(string $text) : void {
         $this->data["button2"] = $text;

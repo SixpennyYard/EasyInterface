@@ -54,9 +54,44 @@ final class Main extends PluginBase {
                     "button" => null
 
                 ]
+            ],
+            "commands" => [
+                [
+                    "fallbackPrefix" => "addForm",
+                    "name" => "addform",
+                    "description" => "Add a form",
+                    "usage" => "/addform",
+                    "sendForm" => "ModalForm"
+                ],
+                [
+                    "fallbackPrefix" => "delForm",
+                    "name" => "delform",
+                    "description" => "Del a form",
+                    "usage" => "/delform",
+                    "sendForm" => "NewForm"
+                ]
+            ],
+            "events" => [
+                [
+                    "event" => "interact",
+                    "with" => "stone",
+                    "sendForm" => "ModalForm"
+                ],
+                [
+                    "event" => "itemUse",
+                    "item" => "dirt",
+                    "sendForm" => "NewForm"
+                ]
             ]
         ];
+    /**
+     * @var Main
+     */
     private static Main $main;
+
+    /**
+     * @return Main
+     */
     public static function getInstance(): Main
     {
         return self::$main;
@@ -68,10 +103,19 @@ final class Main extends PluginBase {
      */
     protected function onEnable(): void
     {
+        $config = $this->getConfigFile("interfaces");
+        if(isset($config['commands']))
+        {
+            foreach ($config['commands'] as $command)
+            {
+                $this->getServer()->getCommandMap()->register($command['fallbackPrefix'], new command\FormCommand($command['name'], $command['description'], $command['usage'], $command['sendForm']));
+            }
+        }
+        FormManager::getInstance()->registerFormEvents($config);
+
         self::$main = $this;
         if (file_exists($this->getDataFolder() . "interfaces.yml"))
         {
-            $config = $this->getConfigFile("interfaces");
             FormManager::getInstance()->registerForm($config);
         }else
         {
@@ -80,6 +124,11 @@ final class Main extends PluginBase {
         }
     }
 
+    /**
+     * @param string $fileName
+     * @param array $setting
+     * @return Config
+     */
     public function getConfigFile(string $fileName, array $setting = []): Config
     {
         return new Config($this->getDataFolder() . $fileName . ".yml", Config::YAML, $setting);

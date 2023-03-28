@@ -14,13 +14,27 @@ use SixpennyYard\EasyInterface\FormManager;
 
 class NewSimpleForm
 {
+    /**
+     * @var SimpleForm
+     */
     public SimpleForm $simpleForm;
 
+    /**
+     * @param string $title
+     * @param string|null $content
+     * @param $buttons
+     */
     public function __construct(string $title, string $content = null, $buttons = null)
     {
         $this->NewSimpleForm($title, $content, $buttons);
     }
 
+    /**
+     * @param string $title
+     * @param string|null $content
+     * @param mixed $buttons
+     * @return void
+     */
     private function NewSimpleForm(string $title, ?string $content, mixed $buttons): void
     {
 

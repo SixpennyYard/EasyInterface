@@ -11,16 +11,35 @@ use SixpennyYard\EasyInterface\form\NewModalForm;
 use SixpennyYard\EasyInterface\form\NewSimpleForm;
 
 class FormManager{
-
+    /**
+     * @var NewModalForm
+     */
     protected NewModalForm $modalFormManage;
+    /**
+     * @var NewCustomForm
+     */
     protected NewCustomForm $customFormManage;
+    /**
+     * @var NewSimpleForm
+     */
     protected NewSimpleForm $simpleFormManage;
+    /**
+     * @var FormManager
+     */
     protected static FormManager $formManager;
 
+    /**
+     * @return FormManager
+     */
     public static function getInstance(): FormManager
     {
         return self::$formManager;
     }
+
+    /**
+     * @param Config $config
+     * @return void
+     */
     public function registerForm (Config $config): void
     {
         $total = count((array)$config['interfaces']);
@@ -50,6 +69,21 @@ class FormManager{
     }
 
     /**
+     * @param Config $config
+     * @return void
+     */
+    public function registerFormEvents(Config $config): void
+    {
+        if (isset($config['events']))
+        {
+            Main::getInstance()->getServer()->getPluginManager()->registerEvents(new event\Events(), Main::getInstance());
+        }
+    }
+
+    /**
+     * @param string $formTitle
+     * @param Player|null $player
+     * @return Form|null
      * @throws FormName
      */
     public function getFormByTitle(string $formTitle, Player $player = null): ?Form
@@ -75,6 +109,9 @@ class FormManager{
     }
 
     /**
+     * @param Player $player
+     * @param string $formTitle
+     * @return void
      * @throws FormName
      */
     public function sendFormToPlayer(Player $player, string $formTitle): void

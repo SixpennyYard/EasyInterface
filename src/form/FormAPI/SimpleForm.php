@@ -9,9 +9,13 @@ class SimpleForm extends Form {
     const IMAGE_TYPE_PATH = 0;
     const IMAGE_TYPE_URL = 1;
 
-    /** @var string */
+    /**
+     * @var string
+     */
     private $content = "";
-
+    /**
+     * @var array
+     */
     private $labelMap = [];
 
     /**
@@ -25,12 +29,17 @@ class SimpleForm extends Form {
         $this->data["buttons"] = [];
     }
 
+    /**
+     * @param $data
+     * @return void
+     */
     public function processData(&$data) : void {
         $data = $this->labelMap[$data] ?? null;
     }
 
     /**
      * @param string $title
+     * @return void
      */
     public function setTitle(string $title) : void {
         $this->data["title"] = $title;
@@ -52,6 +61,7 @@ class SimpleForm extends Form {
 
     /**
      * @param string $content
+     * @return void
      */
     public function setContent(string $content) : void {
         $this->data["content"] = $content;
@@ -62,6 +72,7 @@ class SimpleForm extends Form {
      * @param int $imageType
      * @param string $imagePath
      * @param string|null $label
+     * @return void
      */
     public function addButton(string $text, int $imageType = -1, string $imagePath = "", ?string $label = null) : void {
         $content = ["text" => $text];
